@@ -6,6 +6,10 @@ terraform {
       source  = "hashicorp/aws"
       version = ">= 5.0"
     }
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = ">= 2.35"
+    }
   }
 }
 
@@ -26,6 +30,10 @@ provider "aws" {
     dynamodb  = "http://localhost:4566"
     elasticloadbalancing = "http://localhost:4566"
   }
+}
+
+provider "kubernetes" {
+  config_path = "~/.kube/config"
 }
 
 module "network" {
@@ -58,3 +66,16 @@ output "bucket_name" { value = module.storage.bucket_name }
 output "role_name" { value = module.iam.role_name }
 output "table_name" { value = module.dynamodb.table_name }
 output "ecs_cluster" { value = module.ecs.cluster_name }
+
+module "k8s" {
+  source = "../../modules/k8s"
+
+  app_name = "hello-local-cloud"
+  app_image = "nginx:alpine"
+  app_port  = 80
+  replicas  = 2
+}
+
+output "k8s_namespace" { value = module.k8s.namespace }
+output "k8s_deployment" { value = module.k8s.deployment_name }
+output "k8s_service" { value = module.k8s.service_name }
