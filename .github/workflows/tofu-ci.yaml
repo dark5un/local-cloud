@@ -1,0 +1,31 @@
+name: 'OpenTofu CI'
+
+on:
+  pull_request:
+    paths:
+      - 'infrastructure/**'
+  push:
+    branches: [main]
+    paths:
+      - 'infrastructure/**'
+
+permissions:
+  contents: read
+
+jobs:
+  tofu-ci:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run Dagger pipeline
+        uses: dagger/dagger-for-github@v7
+        with:
+          version: '0.21.7'
+          verb: call
+          args: >-
+            --project=pipeline
+            fmt-check validate-modules test-modules integration-plan
