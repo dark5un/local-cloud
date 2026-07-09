@@ -1,0 +1,4 @@
+/sdk/** linguist-generated
+/dagger.gen.go linguist-generated
+/internal/dagger/** linguist-generated
+/internal/telemetry/** linguist-generated

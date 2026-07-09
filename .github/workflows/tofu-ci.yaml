@@ -15,7 +15,7 @@ permissions:
 jobs:
   tofu-ci:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
 
     steps:
       - name: Checkout
@@ -27,5 +27,5 @@ jobs:
           version: '0.21.7'
           verb: call
           args: >-
-            --project=pipeline
+            --mod=pipeline
             fmt-check validate-modules test-modules integration-plan
