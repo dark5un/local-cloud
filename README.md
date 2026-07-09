@@ -34,18 +34,22 @@ TDD-driven infrastructure for a local cloud stack: [Floci](https://github.com/lo
 # Start the stack
 ./scripts/up.sh
 
-# Run tests
-cd infrastructure/opentofu/modules/storage
-tofu test
-
-# Plan the full environment
-cd infrastructure/opentofu/environments/local
-tofu plan
+# Run the full CI pipeline (Dagger Go module)
+cd pipeline
+dagger call fmt-check
+dagger call validate-modules
+dagger call test-modules
+dagger call integration-plan
 ```
+
+The [Dagger](https://dagger.io) pipeline at `pipeline/` runs OpenTofu format check, schema validation, contract tests, and infrastructure plan — all inside isolated containers. Written in Go using the Dagger SDK v0.21.7.
 
 ## Blog Series
 
 The [Philosophical Developer](https://onlyascii.dev) — local cloud chapters:
 
-- [Chapter 13 — Local Matters](https://onlyascii.dev/posts/chapter-13-local-matters/)
+- [Chapter 13 — Why Local Matters](https://onlyascii.dev/posts/chapter-13-local-matters/)
 - [Chapter 14 — Code Your Infrastructure](https://onlyascii.dev/posts/chapter-14-infra-code/)
+- [Chapter 15 — The Pipeline](https://onlyascii.dev/posts/chapter-15-the-pipeline/)
+- [Chapter 16 — Deploy to the Local Cloud](https://onlyascii.dev/posts/chapter-16-deploy-local-cloud/)
+- [Chapter 17 — Observability](https://onlyascii.dev/posts/chapter-17-observability/)
