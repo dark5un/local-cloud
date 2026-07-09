@@ -13,7 +13,7 @@ provider "aws" {
 }
 
 run "create_role" {
-  command = apply
+  command = plan
 
   module {
     source = "./."

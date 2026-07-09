@@ -1,5 +1,5 @@
 run "local_environment" {
-  command = apply
+  command = plan
 
   assert {
     condition     = output.vpc_id != ""

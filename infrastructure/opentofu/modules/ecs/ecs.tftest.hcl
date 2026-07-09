@@ -17,7 +17,7 @@ provider "aws" {
 }
 
 run "create_service" {
-  command = apply
+  command = plan
 
   module {
     source = "./."

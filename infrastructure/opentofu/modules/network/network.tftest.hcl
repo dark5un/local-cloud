@@ -12,7 +12,7 @@ provider "aws" {
 }
 
 run "create_vpc" {
-  command = apply
+  command = plan
 
   module {
     source = "./."

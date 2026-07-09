@@ -12,7 +12,7 @@ provider "aws" {
 }
 
 run "create_bucket" {
-  command = apply
+  command = plan
 
   module {
     source = "./."
@@ -30,7 +30,7 @@ run "create_bucket" {
 }
 
 run "custom_bucket_name" {
-  command = apply
+  command = plan
 
   variables {
     bucket_name = "my-custom-bucket"

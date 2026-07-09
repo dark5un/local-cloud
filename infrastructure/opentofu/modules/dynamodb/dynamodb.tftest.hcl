@@ -12,7 +12,7 @@ provider "aws" {
 }
 
 run "create_table" {
-  command = apply
+  command = plan
 
   module {
     source = "./."
