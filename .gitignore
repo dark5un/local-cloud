@@ -1,0 +1,21 @@
+# OpenTofu/Terraform
+.terraform/
+.tofu/
+*.tfstate
+*.tfstate.backup
+*.tfvars
+
+# Kubernetes
+kubeconfig
+.k3s/
+
+# Environment
+.env
+.env.local
+
+# Go
+vendor/
+
+# OS
+.DS_Store
+Thumbs.db
