@@ -37,7 +37,8 @@ KUBECONFIG=<(distrobox-host-exec bash -c '/tmp/k3d kubeconfig get local-cloud') 
   kubectl apply -f "$HOST/hello/deployment.yaml"
 
 echo ">> verify"
-curl -sf http://localhost:4566/_localstack/health | python3 -c "import sys,json; d=json.load(sys.stdin); print(f'  floci: {len(d[\"services\"])} services')"
+services=$(curl -sf http://localhost:4566/_localstack/health | grep -o '"services"[^}]*' | grep -o '"[a-z_-]*"' | wc -l)
+echo "  floci: $services services"
 curl -sf http://localhost:5000/v2/_catalog
 KUBECONFIG=<(distrobox-host-exec bash -c '/tmp/k3d kubeconfig get local-cloud') kubectl get pods hello
 echo ">> all up"

@@ -13,7 +13,7 @@ TDD-driven infrastructure for a local cloud stack: [Floci](https://github.com/lo
 | `ecs` | Fargate cluster + service | 1 |
 | `local env` | Full stack integration | 1 |
 
-**7 test runs. All passing.** `tofu test` in any module directory.
+**7 test runs. All passing.** Via the Dagger pipeline: `dagger call test-modules` from `pipeline/`.
 
 ## Stack
 
