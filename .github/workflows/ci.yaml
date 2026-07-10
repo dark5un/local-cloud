@@ -29,19 +29,14 @@ jobs:
           version: '0.21.7'
           verb: download
 
-      - name: fmt-check
+      - name: Check formatting
         working-directory: pipeline
         run: dagger call fmt-check
 
-      - name: validate-modules
+      - name: Validate modules
         working-directory: pipeline
         run: dagger call validate-modules
 
-      - name: test-modules
+      - name: Run tests
         working-directory: pipeline
         run: dagger call test-modules
-
-      - name: integration-plan
-        working-directory: pipeline
-        continue-on-error: true
-        run: dagger call integration-plan
