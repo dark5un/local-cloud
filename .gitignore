@@ -21,3 +21,6 @@ vendor/
 Thumbs.db
 bin/
 .hermes/
+/dagger.gen.go
+/internal/dagger
+/internal/telemetry

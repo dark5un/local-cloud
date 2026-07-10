@@ -5,6 +5,6 @@
     "source": "go"
   },
   "include": [
-    "../infrastructure"
+    "infrastructure"
   ]
 }
