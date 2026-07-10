@@ -21,11 +21,24 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Run Dagger pipeline
+      - name: Install Dagger CLI
         uses: dagger/dagger-for-github@v7
         with:
           version: '0.21.7'
-          workdir: pipeline
-          verb: call
-          args: >-
-            fmt-check validate-modules test-modules integration-plan
+          verb: download
+
+      - name: fmt-check
+        working-directory: pipeline
+        run: dagger call fmt-check
+
+      - name: validate-modules
+        working-directory: pipeline
+        run: dagger call validate-modules
+
+      - name: test-modules
+        working-directory: pipeline
+        run: dagger call test-modules
+
+      - name: integration-plan
+        working-directory: pipeline
+        run: dagger call integration-plan
