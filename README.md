@@ -44,6 +44,47 @@ dagger call integration-plan
 
 The [Dagger](https://dagger.io) pipeline at `pipeline/` runs OpenTofu format check, schema validation, contract tests, and infrastructure plan — all inside isolated containers. Written in Go using the Dagger SDK v0.21.7.
 
+## Deployment to Real AWS
+
+The modules are tested against [Floci](https://github.com/localstack/floci) (an AWS emulator) but are provider-agnostic — they work with real AWS unchanged.
+
+### Prerequisites
+
+- An AWS account with credentials (access key + secret key)
+- AWS CLI configured (`aws configure`)
+
+### Setup
+
+1. Copy the real AWS environment template:
+   ```bash
+   cp -r infrastructure/opentofu/environments/real-aws infrastructure/opentofu/environments/staging
+   ```
+
+2. Edit `environments/staging/main.tf` — uncomment the S3 backend section and set your state bucket name.
+
+3. Plan against real AWS (credentials never touch your filesystem — passed as Dagger secrets):
+   ```bash
+   cd pipeline
+   dagger call aws-plan \
+     --aws-access-key=env:AWS_ACCESS_KEY_ID \
+     --aws-secret-key=env:AWS_SECRET_ACCESS_KEY \
+     --env=staging
+   ```
+
+4. Review the plan output. If it looks correct, apply:
+   ```bash
+   dagger call aws-apply \
+     --aws-access-key=env:AWS_ACCESS_KEY_ID \
+     --aws-secret-key=env:AWS_SECRET_ACCESS_KEY \
+     --env=staging
+   ```
+
+**Important:** `aws-apply` is intentionally gated — it never runs automatically in CI. Plans are read-only; apply requires an explicit local `dagger call` with human confirmation.
+
+### How It Works
+
+The pipeline functions accept AWS credentials as Dagger `Secret` objects — they are never written to disk, never logged, and never exposed in the container's environment to other processes. The same modules, the same tests, the same pipeline. Only the environment directory and provider config change.
+
 ## Blog Series
 
 The [Philosophical Developer](https://onlyascii.dev) — local cloud chapters:
