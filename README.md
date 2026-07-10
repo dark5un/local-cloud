@@ -94,3 +94,4 @@ The [Philosophical Developer](https://onlyascii.dev) — local cloud chapters:
 - [Chapter 15 — The Pipeline](https://onlyascii.dev/posts/chapter-15-the-pipeline/)
 - [Chapter 16 — Deploy to the Local Cloud](https://onlyascii.dev/posts/chapter-16-deploy-local-cloud/)
 - [Chapter 17 — Observability](https://onlyascii.dev/posts/chapter-17-observability/)
+- [Chapter 18 — Image Management & ECR](https://onlyascii.dev/posts/chapter-18-image-management/)
