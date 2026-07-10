@@ -89,6 +89,7 @@ The pipeline functions accept AWS credentials as Dagger `Secret` objects — the
 
 The [Philosophical Developer](https://onlyascii.dev) — local cloud chapters:
 
+- [Getting Started Guide](https://onlyascii.dev/posts/chapter-guide-getting-started/)
 - [Chapter 13 — Why Local Matters](https://onlyascii.dev/posts/chapter-13-local-matters/)
 - [Chapter 14 — Code Your Infrastructure](https://onlyascii.dev/posts/chapter-14-infra-code/)
 - [Chapter 15 — The Pipeline](https://onlyascii.dev/posts/chapter-15-the-pipeline/)
