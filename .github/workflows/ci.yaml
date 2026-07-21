@@ -40,3 +40,31 @@ jobs:
       - name: Run tests
         working-directory: pipeline
         run: dagger call test-modules
+
+  pulumi-ci:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: infrastructure/pulumi
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.26'
+          cache: true
+
+      - name: Install Pulumi CLI
+        run: |
+          curl -fsSL https://get.pulumi.com | sh
+          echo "$HOME/.pulumi/bin" >> $GITHUB_PATH
+
+      - name: Build check
+        run: go build ./...
+
+      - name: Run unit tests
+        run: go test -v -count=1 ./...

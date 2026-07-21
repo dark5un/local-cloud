@@ -15,6 +15,7 @@ kubeconfig
 
 # Go
 vendor/
+*.pulumi
 
 # OS
 .DS_Store

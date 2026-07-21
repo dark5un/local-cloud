@@ -1,0 +1,10 @@
+name: local-cloud-pulumi
+description: Pulumi Go port of local-cloud infrastructure modules
+runtime: go
+config:
+  aws:region: us-east-1
+  aws:accessKey: test
+  aws:secretKey: test
+  aws:skipCredentialsValidation: "true"
+  aws:skipMetadataApiCheck: "true"
+  aws:skipRequestingAccountId: "true"

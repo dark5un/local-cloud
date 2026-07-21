@@ -85,6 +85,51 @@ The modules are tested against [Floci](https://github.com/localstack/floci) (an 
 
 The pipeline functions accept AWS credentials as Dagger `Secret` objects — they are never written to disk, never logged, and never exposed in the container's environment to other processes. The same modules, the same tests, the same pipeline. Only the environment directory and provider config change.
 
+## Pulumi Port (Go SDK)
+
+The same infrastructure modules are also available as a [Pulumi](https://www.pulumi.com/) Go program at `infrastructure/pulumi/`. Seven modules, each with unit tests using Pulumi mocks, plus a Dagger CI pipeline.
+
+### Project Structure
+
+```
+infrastructure/pulumi/
+├── main.go              # Stack composition (all 7 modules)
+├── main_test.go          # Unit tests with mocks (8 tests)
+├── storage.go            # Versioned S3 bucket
+├── network.go            # VPC + public subnet
+├── iam.go                # ECS task role + policy + attachment
+├── dynamodb.go           # DynamoDB table (PAY_PER_REQUEST)
+├── ecs.go                # Fargate cluster + task definition + service
+├── ecr.go                # ECR repository with image scanning
+├── k8s.go                # Kubernetes namespace + deployment + service
+├── Pulumi.yaml           # Project config
+├── Pulumi.dev.yaml       # Floci endpoint config
+└── scripts/
+    ├── up.sh              # Start Floci
+    ├── deploy.sh          # Deploy to Floci
+    └── integration-test.sh# Full lifecycle integration test
+```
+
+### Usage
+
+```bash
+cd infrastructure/pulumi
+
+# Unit tests (no infrastructure needed)
+go test -v -count=1 ./...
+
+# Deploy to local Floci
+./scripts/up.sh
+./scripts/deploy.sh
+
+# Full integration test
+./scripts/integration-test.sh
+```
+
+### CI
+
+The GitHub Actions workflow runs both the OpenTofu pipeline (via Dagger) and the Pulumi unit tests in parallel.
+
 ## Blog Series
 
 The [Philosophical Developer](https://onlyascii.dev) — local cloud chapters:
@@ -96,3 +141,4 @@ The [Philosophical Developer](https://onlyascii.dev) — local cloud chapters:
 - [Chapter 16 — Deploy to the Local Cloud](https://onlyascii.dev/posts/chapter-16-deploy-local-cloud/)
 - [Chapter 17 — Observability](https://onlyascii.dev/posts/chapter-17-observability/)
 - [Chapter 18 — Image Management & ECR](https://onlyascii.dev/posts/chapter-18-image-management/)
+- [Chapters 27-31 -- Pulumi Go Port](https://onlyascii.dev/) (coming soon)
