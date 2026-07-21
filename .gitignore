@@ -1,9 +1,28 @@
-# OpenTofu/Terraform
+# Local .terraform-like directories
+# OpenTofu stores providers and modules here
 .terraform/
 .tofu/
+
+# Local state files
+# State files contain sensitive data and should be stored in a remote backend
 *.tfstate
 *.tfstate.backup
+*.tfstate.lock.info
+
+# Variable files
+# .tfvars files often contain secrets; .tfvars.json is the JSON equivalent
 *.tfvars
+*.tfvars.json
+
+# Crash logs
+crash.log
+
+# Override files
+# Used for local testing/overrides that shouldn't be committed
+override.tf
+override.tf.json
+*.override.tf
+*.override.tf.json
 
 # Kubernetes
 kubeconfig
@@ -15,7 +34,10 @@ kubeconfig
 
 # Go
 vendor/
-*.pulumi
+
+# Pulumi local state and metadata
+.pulumi/
+local-cloud-pulumi
 
 # OS
 .DS_Store
